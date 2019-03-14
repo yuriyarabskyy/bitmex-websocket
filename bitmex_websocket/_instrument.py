@@ -1,6 +1,7 @@
 import alog
 
 from bitmex_websocket._bitmex_websocket import BitMEXWebsocket
+from bitmex_websocket.settings import settings
 
 from bitmex_websocket.constants import Channels, SecureChannels, \
     SecureInstrumentChannels
@@ -18,10 +19,12 @@ class SubscribeToSecureChannelException(Exception):
 
 class Instrument(BitMEXWebsocket):
     def __init__(self,
+                 api_key,
+                 api_secret,
                  symbol: str='XBTUSD',
                  channels: [Channels] or [str]=None,
-                 should_auth=False):
-        BitMEXWebsocket.__init__(self, should_auth)
+                 should_auth=True):
+        BitMEXWebsocket.__init__(self, api_key, api_secret, should_auth)
 
         if channels is None:
             raise SubscribeToAtLeastOneChannelException()
